@@ -14,8 +14,10 @@ const NavBar = () => {
                 <div className=" w-12 h-12 overflow-hidden   rounded-full">
                   <Image
                     src="/logo2.webp"
-                    alt=""
                     className="w-full h-full object-cover"
+                    width={100}
+                    height={100}
+                    alt="Picture of the author"
                   />
                   {/* <Image
                     src="/logo,jpg"

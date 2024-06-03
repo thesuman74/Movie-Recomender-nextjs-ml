@@ -83,6 +83,8 @@ const HeroSection = () => {
                 src="/brain.png"
                 alt=""
                 className="w-[150px] h-full object-cover   "
+                width={200}
+                height={200}
               />
 
               <div className="flex flex-col -mx-10">
