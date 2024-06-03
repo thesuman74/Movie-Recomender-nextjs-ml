@@ -12,7 +12,7 @@ const NavBar = () => {
             <div className="min-w-max inline-flex relative">
               <a href="/" className="relative flex items-center gap-3">
                 <div className=" w-12 h-12 overflow-hidden   rounded-full">
-                  <img
+                  <Image
                     src="/logo2.webp"
                     alt=""
                     className="w-full h-full object-cover"

@@ -79,7 +79,7 @@ const HeroSection = () => {
             </div>
             <div className="mt-2 flex space-x-4 items-center">
               {/* brain svg  */}
-              <img
+              <Image
                 src="/brain.png"
                 alt=""
                 className="w-[150px] h-full object-cover   "
