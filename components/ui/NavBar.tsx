@@ -3,7 +3,7 @@ import React from "react";
 
 const NavBar = () => {
   return (
-    <header className="sticky inset-x-0 top-0 z-50 py-6 ">
+    <header className=" z-50 py-6 ">
       <div className="mx-auto lg:max-w-7xl w-full px-5 sm:px-10 md:px-12 lg:px-5">
         <nav className="w-full flex justify-between gap-6 relative">
           {/* <!-- logo --> */}
