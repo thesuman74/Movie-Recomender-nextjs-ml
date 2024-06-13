@@ -9,3 +9,9 @@ export interface AnimeProp {
   episodes_aired: number;
   score: string;
 }
+
+export interface User {
+  name: string;
+  email: string;
+  id: string;
+}
