@@ -14,12 +14,20 @@ export async function fetchAnime(page = 1) {
   return data;
 }
 
-export default async function fetchGenreList() {
+export async function fetchGenreList() {
   const response = await fetch(
     `https://api.themoviedb.org/3/genre/movie/list?${apiKey}`
   );
   const data = response.json();
   console.log("fetched genre data", data);
+
+  return data;
+}
+
+export async function moviesList() {
+  const response = await fetch(`http://127.0.0.1:5000/api/movies`);
+  const data = response.json();
+  console.log("Fetched movies list", data);
 
   return data;
 }
