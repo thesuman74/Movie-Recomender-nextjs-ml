@@ -38,7 +38,7 @@ function MoviesCards({ anime }: Prop) {
             />
           </div>
           <div>
-            <p className="p-3 text-xl text-black dark:text-white">
+            <p className="p-3 text-xl  text-white dark:text-white">
               {anime.name}
             </p>
           </div>

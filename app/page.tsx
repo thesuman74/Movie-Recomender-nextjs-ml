@@ -3,12 +3,13 @@ import MoviesCards from "@/components/ui/cards/MoviesCards";
 
 import Movies from "./Home/Movies";
 import MoodCategories from "@/components/ui/cards/MoodCategories";
+import TabSection from "@/components/Home/TabSection";
 
 export default function Home() {
   return (
     <div>
       <HeroSection />
-      <MoodCategories />
+      <TabSection />
       <Movies />
     </div>
   );

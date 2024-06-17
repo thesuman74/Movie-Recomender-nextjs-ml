@@ -29,7 +29,7 @@ const HeroSection = () => {
             className="relative flex flex-col items-center text-center lg:text-left lg:py-7 xl:py-8 
             lg:items-start lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2"
           >
-            {/* <h1
+            <h1
               className="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl
             font-bold text-gray-100"
             >
@@ -38,7 +38,7 @@ const HeroSection = () => {
                 Movie Recomender
               </span>
               That You Will Ever Need.
-            </h1> */}
+            </h1>
             <p className="-mb-8 mt-8 text-gray-50">
               Find perfect match to your mood
             </p>
@@ -97,8 +97,8 @@ const HeroSection = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-1 lg:w-1/2 lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto max-w-3xl">
-            <h1
+          <div className="flex flex-1 bottom-0 lg:w-1/2 lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto max-w-3xl  items-center justify-center">
+            {/* <h1
               className="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl
             font-bold text-gray-100"
             >
@@ -107,15 +107,16 @@ const HeroSection = () => {
                 Movie Recomender
               </span>
               That You Will Ever Need.
-            </h1>
-            {/* <Image
-              src="/poster14.jpg"
+            </h1> */}
+
+            <Image
+              src="/movienight.png"
               width={500}
               height={500}
               alt="Picture of the author"
               quality={100}
-              className="lg:absolute lg:w-full lg:h-full rounded-3xl object-cover lg:max-h-none max-h-96"
-            /> */}
+              className="lg:absolute size-[400px] rounded-3xl object-cover lg:max-h-none max-h-96"
+            />
           </div>
         </div>
       </section>
