@@ -1,6 +1,13 @@
-// This is the movie card component
-
 import { useRouter } from "next/navigation";
+import {
+  Key,
+  ReactElement,
+  JSXElementConstructor,
+  ReactNode,
+  ReactPortal,
+  AwaitedReactNode,
+} from "react";
+import ReactPlayer from "react-player";
 
 // Define an interface for the movie prop
 interface Movie {
@@ -14,12 +21,33 @@ interface Movie {
 
 interface MovieCardProps {
   searchedMovie: Movie;
+  videoData: any;
+  currGenre: any;
 }
+
 const img_path = "https://image.tmdb.org/t/p/w342";
 const backdropPath = "https://image.tmdb.org/t/p/w1280";
 
-const MovieCard: React.FC<MovieCardProps> = ({ searchedMovie }) => {
-  console.log("this is movie data", searchedMovie);
+const RenderTrailer = (videoData: any) => {
+  console.log("render trailer is clicked", videoData);
+  return (
+    <div>
+      <ReactPlayer
+        url={`https://www.youtube.com/watch?v=LgZ2MDuJvhc-U`}
+        playing={true}
+        width="100%"
+        height="100%"
+        controls={true}
+      />
+    </div>
+  );
+};
+const MovieCard: React.FC<MovieCardProps> = ({
+  searchedMovie,
+  videoData,
+  currGenre,
+}) => {
+  console.log("this is render trailer data", videoData);
 
   return (
     <div
@@ -45,18 +73,20 @@ const MovieCard: React.FC<MovieCardProps> = ({ searchedMovie }) => {
           </p>
           <p className="font-xl font-bold text-white space-x-2">
             Genre:{" "}
-            <span className="py-1 px-3 text-sm border border-red-400 rounded-2xl">
-              Drama
-            </span>
-            <span className="py-1 px-3 text-sm border border-red-400 rounded-2xl">
-              Comedy
-            </span>
-            <span className="py-1 px-3 text-sm border border-red-400 rounded-2xl">
-              Action
-            </span>{" "}
+            {currGenre.map((genre: { id: string; name: string }) => (
+              <span
+                key={genre.id}
+                className="py-1 px-3 text-sm border border-red-400 rounded-2xl"
+              >
+                {genre.name}
+              </span>
+            ))}
           </p>
         </div>
-        <button className=" mx-2 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2  rounded w-28">
+        <button
+          onClick={() => RenderTrailer(videoData)}
+          className="mx-2 cursor-pointer bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 rounded w-28"
+        >
           Play Trailer
         </button>
       </div>
@@ -72,5 +102,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ searchedMovie }) => {
     </div>
   );
 };
-
 export default MovieCard;
