@@ -1,7 +1,19 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SearchBar from "../search/SearchBar";
 
 const HeroSection = () => {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    setList([]);
+    //getting the list of all movies from our flask server for our searchbar
+    fetch("http://127.0.0.1:5000/api/movies").then((Response) =>
+      Response.json().then((data) => setList(data.arr))
+    );
+  }, []);
   return (
     <div>
       <link
@@ -29,7 +41,7 @@ const HeroSection = () => {
             className="relative flex flex-col items-center text-center lg:text-left lg:py-7 xl:py-8 
             lg:items-start lg:max-w-none max-w-3xl mx-auto lg:mx-0 lg:flex-1 lg:w-1/2"
           >
-            {/* <h1
+            <h1
               className="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl
             font-bold text-gray-100"
             >
@@ -38,13 +50,13 @@ const HeroSection = () => {
                 Movie Recomender
               </span>
               That You Will Ever Need.
-            </h1> */}
+            </h1>
             <p className="-mb-8 mt-8 text-gray-50">
               Find perfect match to your mood
             </p>
             <div className="mt-10  w-full flex max-w-md mx-auto lg:mx-0">
               <div className="flex sm:flex-row flex-col gap-5 w-full">
-                <form
+                {/* <form
                   action="#"
                   className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-gray-600 shadow-lg shadow-gray-200/20
                             border border-gray-200 bg-gray-100 rounded-full ease-linear focus-within:bg-white  focus-within:border-blue-600"
@@ -74,7 +86,8 @@ const HeroSection = () => {
                       <path d="m21 21-4.3-4.3" />
                     </svg>{" "}
                   </button>
-                </form>
+                </form> */}
+                <SearchBar movies={list} placeholder={"Search for movies"} />
               </div>
             </div>
             <div className="mt-2 flex space-x-4 items-center">
@@ -97,8 +110,8 @@ const HeroSection = () => {
               </div>
             </div>
           </div>
-          <div className="flex flex-1 lg:w-1/2 lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto max-w-3xl">
-            <h1
+          <div className="flex flex-1 bottom-0 lg:w-1/2 lg:h-auto relative lg:max-w-none lg:mx-0 mx-auto max-w-3xl  items-center justify-center">
+            {/* <h1
               className="text-3xl leading-tight sm:text-4xl md:text-5xl xl:text-6xl
             font-bold text-gray-100"
             >
@@ -107,15 +120,16 @@ const HeroSection = () => {
                 Movie Recomender
               </span>
               That You Will Ever Need.
-            </h1>
-            {/* <Image
-              src="/poster14.jpg"
+            </h1> */}
+
+            <Image
+              src="/movienight.png"
               width={500}
               height={500}
               alt="Picture of the author"
               quality={100}
-              className="lg:absolute lg:w-full lg:h-full rounded-3xl object-cover lg:max-h-none max-h-96"
-            /> */}
+              className="lg:absolute size-[400px] rounded-3xl object-cover lg:max-h-none max-h-96"
+            />
           </div>
         </div>
       </section>

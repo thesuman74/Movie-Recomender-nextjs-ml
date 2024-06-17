@@ -7,7 +7,7 @@ const Logout = () => {
       <form action={doLogout}>
         <button
           type="submit"
-          className="bg-red-400 my-2 text-white p-1 rounded-lg"
+          className="bg-red-400 my-2 text-white px-4 py-2 rounded-lg"
         >
           Log Out
         </button>

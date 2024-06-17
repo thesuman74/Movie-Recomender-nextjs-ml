@@ -1,15 +1,34 @@
 "use server";
 
 import { signIn, signOut } from "@/auth";
+const apiKey = process.env.API_KEY;
 
-const MAX_LIMIT = 40;
+const MAX_LIMIT = 12;
 export async function fetchAnime(page = 1) {
   const response = await fetch(
     `https://shikimori.one/api/animes?page=${page}&limit=${MAX_LIMIT}&order=popularity`,
     { next: { revalidate: 10 } }
   );
   const data = await response.json();
-  console.log("fetched data", data);
+  // console.log("fetched data", data);
+  return data;
+}
+
+export async function fetchGenreList() {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/genre/movie/list?${apiKey}`
+  );
+  const data = response.json();
+  console.log("fetched genre data", data);
+
+  return data;
+}
+
+export async function moviesList() {
+  const response = await fetch(`http://127.0.0.1:5000/api/movies`);
+  const data = response.json();
+  console.log("Fetched movies list", data);
+
   return data;
 }
 

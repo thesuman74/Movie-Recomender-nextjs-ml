@@ -12,14 +12,14 @@ const SideBar = async () => {
 
   return (
     <>
-      <aside className=" flex flex-col w-64 h-screen px-5 py-8  bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+      <section className=" sticky top-0 flex flex-col w-64 h-screen px-5 py-8   border-r   rtl:border-l bg-gray-900 dark:border-gray-700">
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav className="-mx-3 space-y-6 ">
             <label className="px-3 -my-5 block text-xl text-white uppercase mb-5 -mt-10">
               Hi, {userName}
             </label>
             <div className="space-y-3 ">
-              <label className="px-3 text-xs text-gray-500 uppercase dark:text-gray-400">
+              <label className="px-3 text-xs text-gray-200 uppercase dark:text-gray-200">
                 analytics
               </label>
 
@@ -192,7 +192,7 @@ const SideBar = async () => {
             </div>
           </nav>
         </div>
-      </aside>
+      </section>
     </>
   );
 };
