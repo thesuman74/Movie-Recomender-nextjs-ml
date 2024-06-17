@@ -1,7 +1,19 @@
+"use client";
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import SearchBar from "../search/SearchBar";
 
 const HeroSection = () => {
+  const [list, setList] = useState([]);
+
+  useEffect(() => {
+    setList([]);
+    //getting the list of all movies from our flask server for our searchbar
+    fetch("http://127.0.0.1:5000/api/movies").then((Response) =>
+      Response.json().then((data) => setList(data.arr))
+    );
+  }, []);
   return (
     <div>
       <link
@@ -44,7 +56,7 @@ const HeroSection = () => {
             </p>
             <div className="mt-10  w-full flex max-w-md mx-auto lg:mx-0">
               <div className="flex sm:flex-row flex-col gap-5 w-full">
-                <form
+                {/* <form
                   action="#"
                   className="py-1 pl-6 w-full pr-1 flex gap-3 items-center text-gray-600 shadow-lg shadow-gray-200/20
                             border border-gray-200 bg-gray-100 rounded-full ease-linear focus-within:bg-white  focus-within:border-blue-600"
@@ -74,7 +86,8 @@ const HeroSection = () => {
                       <path d="m21 21-4.3-4.3" />
                     </svg>{" "}
                   </button>
-                </form>
+                </form> */}
+                <SearchBar movies={list} placeholder={"Search for movies"} />
               </div>
             </div>
             <div className="mt-2 flex space-x-4 items-center">

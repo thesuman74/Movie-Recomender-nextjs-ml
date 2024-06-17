@@ -15,3 +15,8 @@ export interface User {
   email: string;
   id: string;
 }
+
+export interface GenreTypes {
+  id: string;
+  name: string;
+}

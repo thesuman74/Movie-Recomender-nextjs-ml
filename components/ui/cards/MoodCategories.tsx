@@ -1,6 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import fetchGenreList from "@/app/action";
 
 const moods = [
   { id: 1, emoji: "😃", mood: "CHEERFUL" },
@@ -23,8 +22,6 @@ const moods = [
   { id: 17, emoji: "😜", mood: "THRILL-SEEKING" },
   { id: 18, emoji: "😋", mood: "PLAYFUL" },
 ];
-const GenreData = fetchGenreList();
-console.log("this is genre data ", GenreData);
 
 const MoodCategories = () => {
   return (
