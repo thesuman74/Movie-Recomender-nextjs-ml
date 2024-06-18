@@ -12,7 +12,7 @@ export default function Home() {
         <h1 className="text-4xl lg:text-6xl font-bold">The Fall Guy</h1>
         <p className="text-lg">
           A down-and-out stuntman must find the missing star of his
-          ex-girlfriend's blockbuster film.
+          ex-girlfriends blockbuster film.
         </p>
         <div className="flex space-x-4">
           <span className="bg-gray-200 text-gray-800 py-1 px-3 rounded-full text-sm">

@@ -73,7 +73,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ movies, placeholder }) => {
           </button>
         </form>
         {filteredMovies.length > 0 && (
-          <div className=" mt-2 z-10 absolute bg-black bg-opacity-80   ">
+          <div className=" mt-2 z-10 absolute bg-black bg-opacity-80 text-white  ">
             {filteredMovies.slice(0, 8).map((movie, index) => (
               <div
                 key={index}
