@@ -100,7 +100,7 @@ const HeroSection = () => {
                 height={200}
               />
 
-              <div className="flex flex-col -mx-10">
+              <div className="flex flex-col -mx-10 text-white">
                 <p className="text-3xl font-bold">Deep Learning Inside</p>
 
                 <p>

@@ -8,112 +8,64 @@ const NavBar = async () => {
   const session = await auth();
 
   return (
-    <header className=" z-50 py-4 dark:bg-black bg-black ">
-      <div className="mx-auto  w-full px-5 sm:px-10 md:px-12 lg:px-5 ">
-        <nav className="w-full flex justify-between gap-6 relative  ">
+    <header className="z-50 py-4 bg-transparent">
+      <div className="mx-auto w-full px-5 sm:px-10 md:px-12 lg:px-5">
+        <nav className="w-full flex justify-between relative">
           {/* <!-- logo --> */}
-          <div className="min-w-max inline-flex relative">
-            <a href="/" className="relative flex items-center gap-3">
-              <div className=" w-12 h-12 overflow-hidden   rounded-full">
+          <div className="inline-flex relative items-center">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 overflow-hidden rounded-full">
                 <Image
                   src="/logo2.webp"
-                  className="w-full h-full object-cover"
-                  width={100}
-                  height={100}
-                  alt="Picture of the author"
+                  width={48}
+                  height={48}
+                  alt="Logo"
+                  className="object-cover"
                 />
               </div>
-              <div className="inline-flex text-lg font-semibold text-gray-50">
-                Movie Recomender
-              </div>
-            </a>
+              <span className="text-lg font-semibold text-gray-50">
+                Movie Recommender
+              </span>
+            </Link>
           </div>
 
-          <div
-            data-nav-overlay
-            aria-hidden="true"
-            className="fixed hidden inset-0 lg:!hidden bg-gray-800/60 bg-opacity-50 backdrop-filter backdrop-blur-xl"
-          ></div>
+          {/* <!-- Menu Items --> */}
+          <div className="flex items-center gap-x-4">
+            <Link href="/" className="text-gray-50 hover:text-blue-600">
+              Home
+            </Link>
+            <Link href="#" className="text-gray-50 hover:text-blue-600">
+              Movies
+            </Link>
+            <Link href="#" className="text-gray-50 hover:text-blue-600">
+              TV Shows
+            </Link>
+            <Link href="#" className="text-gray-50 hover:text-blue-600">
+              Suggest
+            </Link>
+          </div>
 
-          <div
-            data-navbar
-            className="flex invisible opacity-0  translate-y-10 overflow-hidden lg:visible lg:opacity-100  lg:-translate-y-0 lg:scale-y-100 duration-300 ease-linear flex-col gap-y-6 gap-x-4 lg:flex-row w-full lg:justify-between lg:items-center absolute lg:relative top-full lg:top-0 bg-white lg:!bg-transparent border-x border-x-gray-100 lg:border-x-0"
+          {/* <!-- Auth Buttons --> */}
+          <div>
+            {session?.user ? (
+              <Logout />
+            ) : (
+              <Link
+                href="/login"
+                className="px-6 h-12 rounded-full bg-blue-600 hover:bg-[#172554] text-white font-semibold"
+              >
+                Login
+              </Link>
+            )}
+          </div>
+
+          {/* <!-- Mobile Menu Toggle --> */}
+          <button
+            className="lg:hidden outline-none w-7 h-auto"
+            aria-label="Toggle Navigation"
           >
-            <ul className="border-t border-gray-100  lg:border-t-0 px-6 lg:px-0 pt-6 lg:pt-0 flex  flex-col lg:flex-row gap-y-4 gap-x-3 text-lg text-gray-50 w-full lg:justify-center lg:items-center">
-              <li>
-                <a
-                  href="/"
-                  className="duration-300 font-medium ease-linear hover:text-blue-600 py-3"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="duration-300 font-medium ease-linear hover:text-blue-600 py-3"
-                >
-                  Movies
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="duration-300 font-medium ease-linear hover:text-blue-600 py-3"
-                >
-                  Tv shows
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="duration-300 font-medium ease-linear hover:text-blue-600 py-3"
-                >
-                  Suggest
-                </a>
-              </li>
-            </ul>
-
-            <div className="lg:min-w-max flex items-center sm:w-max w-full pb-6 lg:pb-0 border-b border-gray-100   lg:border-0 px-6 lg:px-0">
-              {session?.user ? (
-                <div>
-                  <Logout />
-                </div>
-              ) : (
-                <Link
-                  href={"/login"}
-                  className="flex justify-center items-center w-full sm:w-max px-6 h-12 rounded-full outline-none relative overflow-hidden border duration-300 ease-linear
-                    after:absolute after:inset-x-0 after:aspect-square after:scale-0 after:opacity-70 after:origin-center after:duration-300 after:ease-linear after:rounded-full after:top-0 after:left-0 after:bg-[#172554] hover:after:opacity-100 hover:after:scale-[2.5] bg-blue-600 border-transparent hover:border-[#172554]"
-                >
-                  <span className="text-white font-semibold text-sm">
-                    Login
-                  </span>
-                </Link>
-              )}
-            </div>
-          </div>
-
-          <div className="min-w-max flex items-center gap-x-3">
-            <button
-              data-toggle-navbar
-              data-is-open="false"
-              className="lg:hidden lg:invisible outline-none w-7 h-auto flex flex-col relative"
-            >
-              <span
-                id="line-1"
-                className="w-6 h-0.5 rounded-full bg-gray-700 transition-all duration-300 ease-linear"
-              ></span>
-              <span
-                id="line-2"
-                className="w-6 origin-center  mt-1 h-0.5 rounded-ful bg-gray-700 transition-all duration-300 ease-linear"
-              ></span>
-              <span
-                id="line-3"
-                className="w-6 mt-1 h-0.5 rounded-ful bg-gray-700 transition-all duration-300 ease-linear"
-              ></span>
-              <span className="sr-only">togglenav</span>
-            </button>
-          </div>
+            {/* Icon bars here */}
+          </button>
         </nav>
       </div>
     </header>

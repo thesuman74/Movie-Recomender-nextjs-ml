@@ -1,14 +1,3 @@
-import { useRouter } from "next/navigation";
-
-import {
-  Key,
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  AwaitedReactNode,
-} from "react";
-import ReactPlayer from "react-player";
 import { DialogCard } from "./DialogCard";
 
 // Define an interface for the movie prop
@@ -30,30 +19,17 @@ interface MovieCardProps {
 const img_path = "https://image.tmdb.org/t/p/w342";
 const backdropPath = "https://image.tmdb.org/t/p/w1280";
 
-const RenderTrailer = (videoData: any) => {
-  console.log("render trailer is clicked", videoData);
-  return (
-    <div>
-      <ReactPlayer
-        url={`https://www.youtube.com/watch?v=${videoData}-U`}
-        playing={true}
-        width="100%"
-        height="100%"
-        controls={true}
-      />
-    </div>
-  );
-};
-const MovieCard: React.FC<MovieCardProps> = ({
+const MovieDetailCard: React.FC<MovieCardProps> = ({
   searchedMovie,
   videoData,
   currGenre,
 }) => {
   return (
     <div
-      className="grid h-[600px] w-full grid-cols-2 items-center justify-center  gap-5 px-10"
+      className="grid h-[600px] w-full grid-cols-2 items-center justify-center  gap-5 px-10 "
       style={{
         backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1)),
+        
         
         url(${backdropPath}${searchedMovie.backdrop_path})`,
       }}
@@ -85,7 +61,6 @@ const MovieCard: React.FC<MovieCardProps> = ({
         </div>
 
         <DialogCard videoData={videoData} />
-        {/* <div>{RenderTrailer(videoData)}</div> */}
       </div>
 
       {/* image section  */}
@@ -99,4 +74,4 @@ const MovieCard: React.FC<MovieCardProps> = ({
     </div>
   );
 };
-export default MovieCard;
+export default MovieDetailCard;
