@@ -3,16 +3,15 @@ import { ReactNode } from "react";
 
 export default function FilterLayout({ children }: { children: ReactNode }) {
   return (
-    <main className="max-w-screen-2xl mx-auto h-full flex  overflow-hidden">
+    <main className="w-full mx-auto h-full flex  overflow-hidden bg-black ">
       {/* Sidebar section visible on larger screens */}
-      <div className="hidden lg:flex w-[18%] sticky top-0  h-screen">
+      <div className="flex w-1/6 sticky  top-0 mr-20  h-screen ">
         <SideBar />
       </div>
 
       {/* Main content section, properly aligned and spaced */}
-      <div className="flex-auto lg:ml-5">
-        <div className="container  h-full">{children}</div>
-      </div>
+
+      <div className="container w-5/6 h-full">{children}</div>
     </main>
   );
 }

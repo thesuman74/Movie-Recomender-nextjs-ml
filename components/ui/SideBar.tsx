@@ -42,7 +42,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">Dashboard</span>
+                <span className="mx-2 text-sm text-gray-200 font-medium">
+                  Dashboard
+                </span>
               </a>
 
               <a
@@ -64,7 +66,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">Trending</span>
+                <span className="mx-2 text-sm font-medium text-gray-200">
+                  Trending
+                </span>
               </a>
             </div>
 
@@ -88,7 +92,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">TV series</span>
+                <span className="mx-2 text-sm font-medium text-gray-200">
+                  TV series
+                </span>
               </a>
 
               <a
@@ -110,7 +116,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">Movies</span>
+                <span className="mx-2 text-sm font-medium text-gray-200">
+                  Movies
+                </span>
               </a>
 
               <a
@@ -132,7 +140,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">comming soon</span>
+                <span className="mx-2 text-sm font-medium text-gray-200 ">
+                  comming soon
+                </span>
               </a>
             </div>
 
@@ -160,7 +170,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">Themes</span>
+                <span className="mx-2 text-sm font-medium text-gray-200 ">
+                  Themes
+                </span>
               </a>
 
               <a
@@ -187,7 +199,9 @@ const SideBar = async () => {
                   />
                 </svg>
 
-                <span className="mx-2 text-sm font-medium">Setting</span>
+                <span className="mx-2 text-sm font-medium text-gray-200">
+                  Setting
+                </span>
               </a>
             </div>
           </nav>

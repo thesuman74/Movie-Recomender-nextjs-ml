@@ -31,7 +31,7 @@ const GenreCategories: React.FC = () => {
         {homeGenreList.map((genre) => (
           <div
             key={genre.id}
-            className="flex items-center justify-center border border-red-500 rounded-lg p-4 cursor-pointer hover:bg-red-400"
+            className="flex items-center text-white justify-center border border-red-500 rounded-lg p-4 cursor-pointer hover:bg-red-400"
           >
             <p className="text-md sm:text-lg md:text-xl lg:text-2xl font-bold">
               {genre.name}
