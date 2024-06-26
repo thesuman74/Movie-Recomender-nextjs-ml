@@ -11,17 +11,17 @@ export const getMovieData = async (inputValue: string) => {
   return response.data;
 };
 
+export const getMovieGenres = async (movieId: number) => {
+  const videoDataUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
+  const response = await axios.get(videoDataUrl);
+  return response.data.genres;
+};
+
 export const getMovieVideos = async (movieId: number) => {
   const videoDataUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&append_to_response=videos`;
   const response = await axios.get(videoDataUrl);
   // console.log("This is gotMovievideos", response);
   return response.data;
-};
-
-export const getMovieGenres = async (movieId: number) => {
-  const videoDataUrl = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`;
-  const response = await axios.get(videoDataUrl);
-  return response.data.genres;
 };
 
 // getting data from flask server
