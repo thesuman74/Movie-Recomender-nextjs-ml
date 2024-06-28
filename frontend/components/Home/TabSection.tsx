@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
-import MoodCategories from "../ui/cards/MoodCategories";
-import GenreCategories from "../ui/cards/GenresCard";
+import MoodCategories from "./MoodCategories";
+import GenreCategories from "./GenresCard";
 
 const TabSection = () => {
   return (

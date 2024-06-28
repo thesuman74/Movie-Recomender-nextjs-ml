@@ -20,7 +20,7 @@ export function CardSkeleton() {
   );
 }
 
-export function MovieDetailSkeletion() {
+export function MovieDetailSkeleton() {
   return (
     <div
       className="grid h-[600px] w-full grid-cols-2 items-center justify-center gap-5 px-10"

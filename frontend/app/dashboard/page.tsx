@@ -1,11 +1,10 @@
 import { auth } from "@/auth";
-import PopularCategories from "@/components/ui/cards/TrendingMoviesCard";
 import TrendingMovies from "@/components/ui/dashboard/TrendingMovies";
-import UserHero from "@/components/ui/dashboard/UserHero";
-import SideBar from "@/components/ui/SideBar";
+
 import { redirect } from "next/navigation";
 import React from "react";
 import Movies from "../Home/Movies";
+import UserProfile from "@/components/UserProfile";
 
 const page = async () => {
   const session = await auth();
@@ -14,7 +13,9 @@ const page = async () => {
 
   return (
     <div className="">
-      <UserHero />
+      {/* <UserHero /> */}
+      <UserProfile />
+
       <TrendingMovies />
       <Movies />
     </div>

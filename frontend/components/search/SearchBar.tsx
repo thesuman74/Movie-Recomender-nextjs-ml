@@ -16,16 +16,19 @@ const SearchBar: React.FC<SearchBarProps> = ({ movies, placeholder }) => {
     setNotFound(false);
     const wordEntered = event.target.value.trim();
     setInputValue(wordEntered);
-    const newFilter = movies.filter((value) => {
-      return value.toLowerCase().includes(wordEntered.toLowerCase());
-    });
-    if (newFilter.length > 0) {
-      setFilteredMovies(newFilter);
-    } else {
+    if (wordEntered === "") {
       setFilteredMovies([]);
+    } else {
+      const newFilter = movies.filter((value) => {
+        return value.toLowerCase().includes(wordEntered.toLowerCase());
+      });
+      if (newFilter.length > 0) {
+        setFilteredMovies(newFilter);
+      } else {
+        setFilteredMovies([]);
+      }
     }
   };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault(); // Prevent the form from causing a page reload
     let flag = filteredMovies.some(

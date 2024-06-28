@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DialogCard } from "./DialogCard";
 
 // Define an interface for the movie prop
@@ -24,6 +25,7 @@ const MovieDetailCard: React.FC<MovieCardProps> = ({
   videoData,
   currGenre,
 }) => {
+  console.log("currGenre:", currGenre);
   return (
     <div
       className="grid h-[600px] w-full grid-cols-2 items-center justify-center  gap-5 px-10 "
@@ -47,15 +49,17 @@ const MovieDetailCard: React.FC<MovieCardProps> = ({
             Release Date:{" "}
             <span className="font-normal">{searchedMovie.release_date} </span>
           </p>
-          <p className="font-xl flex flex-wrap font-bold text-white space-x-2">
-            Genre:{" "}
+          <p className="font-xl flex flex-wrap font-bold text-white space-x-2 cursor-pointer">
+            Genre:{"  "}
             {currGenre.map((genre: { id: string; name: string }) => (
-              <span
-                key={genre.id}
-                className="py-1  px-3 text-sm border border-red-400 rounded-2xl"
-              >
-                {genre.name}
-              </span>
+              <Link href={`../genre/${genre.name}`}>
+                <span
+                  key={genre.id}
+                  className="py-1  px-3 mx-1 text-sm border border-red-400 rounded-2xl"
+                >
+                  {genre.name}
+                </span>
+              </Link>
             ))}
           </p>
         </div>
