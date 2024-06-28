@@ -5,19 +5,11 @@ import React from "react";
 const SideBar = async () => {
   const session = await auth();
 
-  if (!session?.user) redirect("/login");
-
-  const userName = session?.user?.name || "User";
-  // const userImage = session?.user?.image || "/default-image.png"; // Provide a default image path
-
   return (
     <>
-      <section className=" sticky top-0 flex flex-col w-64 h-screen px-5 py-8   border-r   rtl:border-l bg-gray-900 dark:border-gray-700">
+      <section className=" sticky top-0 flex flex-col w-64 h-screen px-5 py-8 border-r border-gray-700 bg-slate-900">
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav className="-mx-3 space-y-6 ">
-            <label className="px-3 -my-5 block text-xl text-white uppercase mb-5 -mt-10">
-              Hi, {userName}
-            </label>
             <div className="space-y-3 ">
               <label className="px-3 text-xs text-gray-200 uppercase dark:text-gray-200">
                 analytics

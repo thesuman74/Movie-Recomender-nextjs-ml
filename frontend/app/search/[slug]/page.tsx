@@ -1,87 +1,79 @@
 "use client";
-import { Suspense, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import {
   getMovieData,
-  getMovieGenres,
-  getMovieVideos,
+  getMovieDetail,
   getRecomendedMovies,
 } from "@/app/api/tmdb/tmdbapi";
-import { Movie, MovieProp } from "@/app/types";
+import { useQuery } from "@tanstack/react-query";
 import MovieDetailCard from "@/components/ui/cards/MovieDetailCard";
 import RecommendedMovies from "@/components/ui/cards/RecommendedMovies";
 import {
-  CardSkeleton,
-  MovieDetailSkeletion,
+  MovieDetailSkeleton,
   RecommendedMoviesSkeleton,
 } from "@/components/ui/Skeletons";
 
 const SearchResult = () => {
-  const params = useParams();
-  const inputValue = params.slug as string;
+  const { slug } = useParams();
+  const inputValue = Array.isArray(slug) ? slug[0] : slug;
 
-  const [searchedMovie, setSearchedMovie] = useState<Movie | null>(null);
-  const [videoData, setVideoData] = useState([]);
-  const [currGenre, setCurrGenre] = useState([{}]);
-  const [recommendedMovies, setRecommendedMovies] = useState<MovieProp[]>([]);
-  const [isLoading, setLoading] = useState(true); // Initialize loading state to true
+  const movieDataQuery = useQuery({
+    queryKey: ["movieData", inputValue],
+    queryFn: () => getMovieData(inputValue),
+    enabled: !!inputValue,
+  });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // Start loading
+  const movieId = movieDataQuery.data?.results[0]?.id;
 
-      if (!inputValue) {
-        setLoading(false);
-        return;
-      }
+  const movieDetailQuery = useQuery({
+    queryKey: ["GenreAndVideoDetail", movieId],
+    queryFn: () => getMovieDetail(movieId),
+    enabled: !!movieId,
+  });
 
-      const movieData = await getMovieData(inputValue);
-      if (movieData.results.length > 0) {
-        setSearchedMovie(movieData.results[0]);
-      }
+  console.log("this is genreand videoDetail", movieDetailQuery);
 
-      const movieId = movieData.results[0].id;
-      const videoData = await getMovieVideos(movieId);
-      setVideoData(videoData.videos.results[0].key);
+  const recommendedMoviesQuery = useQuery({
+    queryKey: ["RecommendedMoviesList", inputValue],
+    queryFn: () => getRecomendedMovies(inputValue),
+    enabled: !!inputValue,
+  });
 
-      const genreData = await getMovieGenres(movieId);
-      setCurrGenre(genreData);
-
-      const recommendedMovies = await getRecomendedMovies(inputValue);
-      setRecommendedMovies(recommendedMovies);
-
-      setLoading(false); // End loading after all data is fetched
-    };
-
-    fetchData();
-  }, [inputValue]);
-
-  const RenderMovies = () => {
-    // Show skeleton loader if searchedMovie is null or isLoading is true
-    if (!searchedMovie || isLoading) {
-      return <MovieDetailSkeletion />;
-    }
-
+  if (movieDataQuery.isLoading || movieDetailQuery.isLoading) {
     return (
-      <MovieDetailCard
-        searchedMovie={searchedMovie}
-        key={searchedMovie.id + searchedMovie.original_title}
-        videoData={videoData}
-        currGenre={currGenre}
-      />
+      <div>
+        <MovieDetailSkeleton />
+      </div>
     );
-  };
+  }
+
+  if (movieDataQuery.isError || movieDetailQuery.isError) {
+    return <div>Error loading Movie details </div>;
+  }
+
+  if (recommendedMoviesQuery.isError) {
+    return <div>Error loading Recommended Data</div>;
+  }
+
+  if (!movieDataQuery.data || !movieDataQuery.data.results.length) {
+    return <div>No movie data found.</div>;
+  }
+
+  const { movieGenre, videoKey } = movieDetailQuery.data ?? {};
 
   return (
     <div className="h-screen">
-      <div className="w-full">{RenderMovies()}</div>
-
+      <MovieDetailCard
+        searchedMovie={movieDataQuery.data.results[0]}
+        currGenre={movieGenre || []}
+        videoData={videoKey || []}
+      />
       <h1 className="text-white text-3xl ml-5">Recommended Movies</h1>
       <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-        {isLoading ? (
+        {recommendedMoviesQuery.isLoading ? (
           <RecommendedMoviesSkeleton />
         ) : (
-          recommendedMovies.map((item) => (
+          recommendedMoviesQuery.data?.map((item) => (
             <RecommendedMovies key={item.id} movie={item} />
           ))
         )}
