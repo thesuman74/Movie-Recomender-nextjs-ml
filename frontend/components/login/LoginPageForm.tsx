@@ -1,7 +1,7 @@
 "use client";
 
 import { doCredentialLogin, doSocialLogin } from "@/app/action";
-import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -91,7 +91,7 @@ export default function LoginPage() {
               href="#"
               className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
             >
-              <span>Register now </span>
+              <Link href={"/register"}>Register now </Link>
               <span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

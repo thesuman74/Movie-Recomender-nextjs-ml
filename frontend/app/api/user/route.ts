@@ -1,58 +1,65 @@
 import { db } from "@/lib/db";
 import { NextResponse } from "next/server";
 import { hash } from "bcrypt";
+import * as z from "zod";
+
+// Define schema for user input validation
+const userSchema = z.object({
+  email: z.string().min(1, "Email is required").email("Invalid Email"),
+  password: z.string().min(1, "Password is required"),
+});
 
 export async function POST(req: Request) {
   try {
+    // Parse and validate the request body against the schema
     const body = await req.json();
-    const { email, username, password } = body;
+    userSchema.parse(body);
 
-    // Check if email already exists
+    const { email, password } = body;
+
+    // Check if an email already exists to avoid duplicate accounts
     const existingUserByEmail = await db.user.findUnique({
       where: { email: email },
     });
     if (existingUserByEmail) {
       return NextResponse.json(
-        { user: null, message: "User with this email already exists" },
-        { status: 409 }
+        { user: null, message: "Server:User with this email already exists" },
+        { status: 409 } // 409 Conflict
       );
     }
 
-    // Check if username already exists
-    const existingUserByUserName = await db.user.findUnique({
-      where: { username: username },
-    });
-    if (existingUserByUserName) {
-      return NextResponse.json(
-        { user: null, message: "User with this username already exists" },
-        { status: 409 }
-      );
-    }
-
-    // Hash the password
+    // Hash the password to ensure security
     const hashedPassword = await hash(password, 10);
 
-    // Create new user
+    // Create a new user in the database with the hashed password
     const newUser = await db.user.create({
       data: {
-        username,
         email,
         password: hashedPassword,
       },
     });
 
-    const { password: newUserPassword, ...rest } = newUser;
+    // Exclude password from the response for security reasons
+    const { password: _, ...rest } = newUser;
 
+    // Return successful user creation response
     return NextResponse.json({
       user: rest,
-      message: "user created successfully",
-      status: 201,
+      message: "Server:User created successfully",
+      status: 201, // 201 Created
     });
   } catch (error) {
+    // Handle and log any errors during the process
     console.error(error);
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Server:Validation failed", errors: error.errors },
+        { status: 400 } // 400 Bad Request
+      );
+    }
     return NextResponse.json(
-      { message: "Internal Server Error" },
-      { status: 500 }
+      { message: "Server:Internal Server Error" },
+      { status: 500 } // 500 Internal Server Error
     );
   }
 }
