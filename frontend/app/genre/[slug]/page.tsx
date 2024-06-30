@@ -9,7 +9,7 @@ import React from "react";
 
 const page = () => {
   const { slug } = useParams();
-  const inputValue = Array.isArray(slug) ? slug[0] : slug;
+  const inputValue = decodeURIComponent(Array.isArray(slug) ? slug[0] : slug);
 
   const movieDataQuery = useQuery({
     queryKey: ["movieData", inputValue],

@@ -3,6 +3,9 @@ import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { getUserByEmail } from "@/data/user";
 import email from "next-auth/providers/email";
+import bcrypt from "bcrypt";
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 export const {
   handlers: { GET, POST },
@@ -28,11 +31,17 @@ export const {
         if (credentials === null) return null;
 
         try {
-          const user = getUserByEmail(credentials?.email as string);
+          const user = await prisma.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
           console.log(user);
           if (user) {
-            const isMatch = user?.password === credentials.password;
-
+            const isMatch = await bcrypt.compare(
+              credentials.password as string,
+              user.password as string
+            );
             if (isMatch) {
               return user;
             } else {
@@ -42,7 +51,8 @@ export const {
             throw new Error("User not found");
           }
         } catch (error) {
-          throw new Error(error as any);
+          console.error(error);
+          throw new Error("Unable to authenticate. Please try again.");
         }
       },
     }),
