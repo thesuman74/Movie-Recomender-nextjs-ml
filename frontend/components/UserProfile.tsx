@@ -46,7 +46,7 @@ const UserProfile = async () => {
                 <svg viewBox="0 0 36 36" className="w-24 h-24">
                   <path
                     className="text-gray-300"
-                    stroke-width="3.8"
+                    strokeWidth="3.8"
                     d="M18 2.0845
                   a 15.9155 15.9155 0 0 1 0 31.831
                   a 15.9155 15.9155 0 0 1 0 -31.831"
@@ -54,7 +54,7 @@ const UserProfile = async () => {
                   />
                   <path
                     className={`stroke-current text-${item.color}`}
-                    stroke-width="3.8"
+                    strokeWidth="3.8"
                     stroke-dasharray={`${item.value}, 100`}
                     d="M18 2.0845
                   a 15.9155 15.9155 0 0 1 0 31.831
