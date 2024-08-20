@@ -19,6 +19,13 @@ export interface MovieProp {
   release_date: string;
   title: string;
   vote_average: number;
+  genre?: string[];
+}
+
+export interface MovieRedux {
+  id: string;
+  title: string;
+  genre: string[];
 }
 export interface User {
   name: string;
@@ -31,8 +38,8 @@ export interface GenreTypes {
   name: string;
 }
 
-export type Movie = {
-  id: number;
+export interface Movie {
+  id: string;
   original_title: string;
   title: string;
   backdrop_path: string;
@@ -42,7 +49,7 @@ export type Movie = {
   release_date: string;
   genre_ids: number[];
   genre: string[];
-};
+}
 
 interface VideoData {
   key: string; // Assuming this is what you need

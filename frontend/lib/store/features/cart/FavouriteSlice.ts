@@ -23,7 +23,7 @@ const favouriteSlice = createSlice({
   name: "favoriteMovies",
   initialState,
   reducers: {
-    addMovietoFavourite: (state, action: PayloadAction<MovieRedux>) => {
+    addMovietoFavourite: (state, action: PayloadAction<Movie>) => {
       console.log("Movie added successfully", action.payload);
       const existingMovie = state.movies.find(
         (movie) => movie.title === action.payload.title
@@ -46,3 +46,4 @@ const favouriteSlice = createSlice({
 export const { addMovietoFavourite, setLoading, setError } =
   favouriteSlice.actions;
 export default favouriteSlice.reducer;
+export { initialState }; // <--- Add this line
