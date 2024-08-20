@@ -41,6 +41,7 @@ export type Movie = {
   overview: string;
   release_date: string;
   genre_ids: number[];
+  genre: string[];
 };
 
 interface VideoData {
