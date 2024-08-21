@@ -4,11 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emotion Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #videoContainer {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        video, canvas {
+            border: 2px solid #ccc;
+        }
+        #redirectForm {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <h1>Real-time Emotion Detection</h1>
-    <video id="video" width="640" height="480" autoplay></video>
-    <canvas id="canvas" width="640" height="480"></canvas>
+    <div id="videoContainer">
+        <video id="video" width="320" height="240" autoplay></video>
+        <canvas id="canvas" width="320" height="240"></canvas>
+    </div>
     <h2 id="emotion"></h2>
     <form id="redirectForm" action="/redirect" method="post" style="display: none;">
         <button type="submit">Go to Next Page</button>
@@ -19,6 +40,7 @@
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
+
         const emotionDisplay = document.getElementById('emotion');
         const redirectForm = document.getElementById('redirectForm');
 
