@@ -8,7 +8,7 @@ const selectGenreCounts = createSelector(
   [selectMovies],
   (movies: MovieRedux[]) => {
     const genreCounts: { [genre: string]: number } = {};
-    movies.forEach((movie: MovieRedux) => {
+    movies?.forEach((movie: MovieRedux) => {
       movie.genre.forEach((genre: string) => {
         if (!genreCounts[genre]) {
           genreCounts[genre] = 0;

@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import React from "react";
+import GenreCounts from "./GenreCount";
 
 const UserProfile = async () => {
   const session = await auth();
@@ -10,6 +11,7 @@ const UserProfile = async () => {
   const userName = session?.user?.name || "User";
   const userImage = session?.user?.image || "/default.png"; // Provide a default image path
 
+  <GenreCounts />;
   const progressData = [
     { label: "Action", value: 60, color: "red-500" },
     { label: "Thriller", value: 20, color: "green-500" },
@@ -72,6 +74,7 @@ const UserProfile = async () => {
           <button className="bg-orange-500 mt-5 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-28">
             Favourites
           </button>
+          <GenreCounts />;
         </div>
       </div>
     </div>
