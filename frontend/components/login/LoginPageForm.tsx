@@ -11,7 +11,10 @@ export default function LoginPage() {
   const router = useRouter();
 
   const handleSubmit = async (formData: FormData) => {
+    setIsLoading(true);
+
     try {
+      setError("");
       const response = await doCredentialLogin(formData);
       if (!!response.error) {
         console.error(response.error);
@@ -22,6 +25,8 @@ export default function LoginPage() {
     } catch (e) {
       console.error(e);
       setError("Check your Credentials");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -30,7 +35,13 @@ export default function LoginPage() {
       <h1 className="text-4xl font-medium">Login</h1>
       <p className="text-slate-500">Hi, Welcome back 👋</p>
       {errMessage && <p className="text-red-500">{errMessage}</p>}
-      <form action={handleSubmit} className="my-5">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(new FormData(e.currentTarget));
+        }}
+        className="my-5"
+      >
         <div className="flex flex-col space-y-5">
           <label htmlFor="email">
             <p className="font-medium text-slate-700 pb-2">Email address</p>
