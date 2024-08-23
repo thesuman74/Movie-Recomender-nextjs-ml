@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { User } from "lucide-react";
 
 interface MovieRedux {
   id: string;
@@ -38,6 +40,9 @@ const favouriteSlice = createSlice({
             state.genreCounts[genre]++;
           }
         });
+        // Store data in local storage
+        localStorage.setItem("favoriteMovies", JSON.stringify(state.movies));
+        console.log("Data stored in local storage:", state.movies);
       }
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
@@ -46,11 +51,48 @@ const favouriteSlice = createSlice({
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+    revertAddMovieToFavourite: (state, action: PayloadAction<MovieRedux>) => {
+      const index = state.movies.findIndex(
+        (movie) => movie.title === action.payload.title
+      );
+      if (index !== -1) {
+        state.movies.splice(index, 1);
+        // Revert genreCounts
+        action.payload.genre.forEach((genre) => {
+          state.genreCounts[genre]--;
+          if (state.genreCounts[genre] === 0) {
+            delete state.genreCounts[genre];
+          }
+        });
+      }
+    },
+    initializeFromLocalStorage: (state) => {
+      const storedMovies = localStorage.getItem("favoriteMovies");
+      if (storedMovies) {
+        state.movies = JSON.parse(storedMovies);
+        // Update genreCounts from stored data
+        state.movies.forEach((movie) => {
+          movie.genre.forEach((genre) => {
+            if (!state.genreCounts[genre]) {
+              state.genreCounts[genre] = 1;
+            } else {
+              state.genreCounts[genre]++;
+            }
+          });
+        });
+      }
+    },
   },
 });
 
-export const { addMovietoFavourite, setLoading, setError } =
-  favouriteSlice.actions;
+export const {
+  addMovietoFavourite,
+  setLoading,
+  setError,
+  revertAddMovieToFavourite,
+  initializeFromLocalStorage,
+} = favouriteSlice.actions;
+
 export default favouriteSlice.reducer;
 
 export const getTopGenres = (state: FavouriteState) => {
@@ -68,4 +110,21 @@ export const getTopGenres = (state: FavouriteState) => {
   });
 
   return genresWithPercentages.slice(0, 3); // Take the top 3 genres
+};
+
+// API service
+export const addMovieToFavouriteApi = async (movie: MovieRedux) => {
+  console.log("Calling API route");
+  try {
+    const payload = {
+      id: movie.id,
+      title: movie.title,
+      genre: movie.genre,
+    };
+    await axios.post("/api/user/FavoriteMovies", payload);
+  } catch (error) {
+    console.error(error);
+    // Revert the Redux state if the API call fails
+    favouriteSlice.actions.revertAddMovieToFavourite(movie);
+  }
 };

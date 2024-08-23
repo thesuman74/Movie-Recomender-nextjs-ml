@@ -1,16 +1,23 @@
 "use client";
-// components/GenreCount.js
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getTopGenres } from "@/lib/store/features/cart/FavouriteSlice";
 import { RootState } from "@/lib/store/Store";
+import { useEffect } from "react";
 
 const GenreCount = () => {
+  const dispatch = useDispatch();
   const favouriteState = useSelector((state: RootState) => state.favourite);
-  const topGenres = getTopGenres(favouriteState);
+
+  useEffect(() => {
+    // Update the genre count when the favourite state changes
+    const topGenres = getTopGenres(favouriteState);
+    console.log("Top genres:", topGenres);
+  }, [favouriteState]);
 
   return (
     <div className="flex mt-2 justify-between mx-20">
-      {topGenres.map((genre, index) => (
+      {getTopGenres(favouriteState).map((genre, index) => (
         <div
           key={index}
           className="relative w-24 h-24 rounded-full mx-3 border border-opacity-40"

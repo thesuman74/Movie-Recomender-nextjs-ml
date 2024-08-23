@@ -11,6 +11,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    suppressHydrationWarning: true,
+  },
 };
 
 export default nextConfig;

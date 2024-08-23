@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Logout from "../LogoutButton";
 import { auth } from "@/auth";
+import { UserCheck } from "lucide-react";
 
 const NavBar = async () => {
   const session = await auth();
@@ -48,7 +49,12 @@ const NavBar = async () => {
           {/* <!-- Auth Buttons --> */}
           <div>
             {session?.user ? (
-              <Logout />
+              <div className="flex text-white items-center space-x-5">
+                <Link href={"/dashboard"}>
+                  <UserCheck />
+                </Link>
+                <Logout />
+              </div>
             ) : (
               <Link
                 href="/login"

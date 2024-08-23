@@ -68,8 +68,8 @@ export const {
       console.log("session", session);
       if (token?.user) {
         session.user = { ...token.user } as any; // Sync user data into session
-        console.log("session", session.user);
-        console.log("session username", session.user.name);
+        // console.log("session", session.user);
+        // console.log("session username", session.user.name);
       }
       return session;
     },
