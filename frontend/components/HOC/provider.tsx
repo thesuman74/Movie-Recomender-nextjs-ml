@@ -5,6 +5,7 @@ import React, { ReactNode } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import StoreProvider from "./StoreProvider";
 import { SessionProvider } from "next-auth/react";
+import ProgressProviders from "./ProgressProvider";
 
 const Provider = ({ children }: { children: ReactNode }) => {
   const queryClient = new QueryClient();
@@ -13,7 +14,7 @@ const Provider = ({ children }: { children: ReactNode }) => {
     <SessionProvider>
       <QueryClientProvider client={queryClient}>
         <StoreProvider>
-          <div>{children}</div>
+          <ProgressProviders>{children}</ProgressProviders>{" "}
           <ReactQueryDevtools initialIsOpen={false} />
         </StoreProvider>
       </QueryClientProvider>
