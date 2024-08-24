@@ -52,6 +52,7 @@ def Recommend(movie):
 def getMoviesByMood(mood, limit):
     mood_to_genres = {
         'happy': ['Action', 'Romance', 'Comedy'],
+        'confused': ['Action', 'Sci-Fi', 'Comedy'],
         'sad': ['Drama', 'Romance', 'Documentary'],
         'neutral': ['Adventure', 'Family', 'Animation'],
         'angry': ['Thriller', 'Action', 'Crime'],
