@@ -19,7 +19,7 @@ export interface MovieProp {
   release_date: string;
   title: string;
   vote_average: number;
-  genre?: string[];
+  genre: string[];
 }
 
 export interface MovieRedux {
@@ -32,7 +32,7 @@ export interface MovieRedux {
   overview: string;
   release_date: string;
   genre_ids: number[];
-  genre?: string[];
+  genre: string[];
 }
 export interface User {
   name: string;

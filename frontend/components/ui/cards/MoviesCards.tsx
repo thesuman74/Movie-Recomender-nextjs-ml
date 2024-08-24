@@ -9,6 +9,7 @@ import { Heart } from "lucide-react";
 const MoviesCards = ({ movie }: { movie: MovieProp }) => {
   const dispatch = useDispatch();
   const { toast } = useToast();
+  console.log("Movie details from movie card", movie);
 
   const handleAddToFavorites = () => {
     const movieToAdd: MovieRedux = {
@@ -21,7 +22,7 @@ const MoviesCards = ({ movie }: { movie: MovieProp }) => {
       overview: "",
       release_date: "",
       genre_ids: movie.genre_ids || [],
-      genre: movie.genre ?? [],
+      genre: movie.genre,
     };
     dispatch(addMovietoFavourite(movieToAdd));
 

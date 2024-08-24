@@ -16,7 +16,7 @@ const page = async () => {
     <div className="">
       {/* <UserHero /> */}
       <UserProfile />
-      <FavouriteMovies />
+      {/* <FavouriteMovies /> */}
 
       {/* <TrendingMovies /> */}
       <Movies />

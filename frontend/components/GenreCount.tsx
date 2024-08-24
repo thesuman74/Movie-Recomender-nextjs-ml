@@ -3,21 +3,36 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getTopGenres } from "@/lib/store/features/cart/FavouriteSlice";
 import { RootState } from "@/lib/store/Store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const GenreCount = () => {
   const dispatch = useDispatch();
   const favouriteState = useSelector((state: RootState) => state.favourite);
 
+  const [genreCounts, setGenreCounts] = useState<Record<string, number>>({});
+
   useEffect(() => {
-    // Update the genre count when the favourite state changes
-    const topGenres = getTopGenres(favouriteState);
-    console.log("Top genres:", topGenres);
+    const calculateGenreCounts = () => {
+      const genreCounts: Record<string, number> = {};
+      favouriteState.movies.forEach((movie) => {
+        movie.genre?.forEach((genre) => {
+          if (!genreCounts[genre]) {
+            genreCounts[genre] = 1;
+          } else {
+            genreCounts[genre]++;
+          }
+        });
+      });
+      setGenreCounts(genreCounts);
+    };
+    calculateGenreCounts();
   }, [favouriteState]);
+
+  const topGenres = getTopGenres(favouriteState);
 
   return (
     <div className="flex mt-2 justify-between mx-20">
-      {getTopGenres(favouriteState).map((genre, index) => (
+      {topGenres.map((genre, index) => (
         <div
           key={index}
           className="relative w-24 h-24 rounded-full mx-3 border border-opacity-40"
@@ -54,5 +69,4 @@ const GenreCount = () => {
     </div>
   );
 };
-
 export default GenreCount;

@@ -5,6 +5,7 @@ import { RootState } from "@/lib/store/Store";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import GenreCount from "./GenreCount";
+import Link from "next/link";
 
 const UserProfile = async () => {
   // const favouriteState = useSelector((state: RootState) => state.favourite);
@@ -38,9 +39,12 @@ const UserProfile = async () => {
           <p className="mt-2">Current Mood: Neutral</p>{" "}
           <p className="mt-2">Preferred Genres:</p>
           <GenreCount />
-          <button className="bg-orange-500 mt-5 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-28">
-            Favourites{" "}
-          </button>
+          <Link
+            href={"/favourites"}
+            className="bg-orange-500 mt-5 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-28"
+          >
+            Favourites
+          </Link>
         </div>
       </div>
     </div>
