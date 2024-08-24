@@ -124,19 +124,19 @@ export const getTopGenres = (state: FavouriteState) => {
   return genresWithPercentages.slice(0, 3); // Take the top 3 genres
 };
 
-// API service
-export const addMovieToFavouriteApi = async (movie: MovieRedux) => {
-  console.log("Calling API route");
-  try {
-    const payload = {
-      id: movie.id,
-      title: movie.title,
-      genre: movie.genre,
-    };
-    await axios.post("/api/user/FavoriteMovies", payload);
-  } catch (error) {
-    console.error(error);
-    // Revert the Redux state if the API call fails
-    favouriteSlice.actions.revertAddMovieToFavourite(movie);
-  }
-};
+// // API service
+// export const addMovieToFavouriteApi = async (movie: MovieRedux) => {
+//   console.log("Calling API route");
+//   try {
+//     const payload = {
+//       id: movie.id,
+//       title: movie.title,
+//       genre: movie.genre,
+//     };
+//     await axios.post("/api/user/FavoriteMovies", payload);
+//   } catch (error) {
+//     console.error(error);
+//     // Revert the Redux state if the API call fails
+//     favouriteSlice.actions.revertAddMovieToFavourite(movie);
+//   }
+// };

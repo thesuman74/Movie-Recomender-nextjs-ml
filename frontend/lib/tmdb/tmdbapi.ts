@@ -48,7 +48,25 @@ export const getRecomendedMovies = async (inputValue: string) => {
   const recommendedMovies = response.data.movies;
   const movieDetails = [];
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 4; i++) {
+    const movie = recommendedMovies[i];
+    const movieData = await getMovieData(movie);
+
+    movieDetails.push(movieData.results[0]);
+  }
+  // console.log("this is recommended movie details", recommendedMovies);
+
+  return movieDetails;
+};
+
+export const getCollaborativeRecommendedMovies = async (inputValue: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:5000/api/collaborative/${inputValue}`
+  );
+  const recommendedMovies = response.data.movies;
+  const movieDetails = [];
+
+  for (let i = 0; i < 4; i++) {
     const movie = recommendedMovies[i];
     const movieData = await getMovieData(movie);
 
@@ -77,6 +95,50 @@ export const getMoviesByGenre = async (inputValue: string) => {
   // console.log("this is recommended movie details", recommendedMovies);
 
   return movieDetails;
+};
+
+export const getMoviesByMood = async (inputValue: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:5000/api/mood/${inputValue}`
+  );
+  console.log("this is movies by genre", response);
+
+  const recommendedMovies = response.data.movies;
+  const movieDetails = [];
+
+  for (let i = 0; i < 10; i++) {
+    const movie = recommendedMovies[i];
+    const movieData = await getMovieData(movie);
+
+    movieDetails.push(movieData.results[0]);
+  }
+  // console.log("this is recommended movie details", recommendedMovies);
+
+  return movieDetails;
+};
+
+export const getAllMoviesBylimit = async (limit: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:5000/api/movies?limit=${limit}`
+  );
+
+  const recommendedMovies = response.data.arr;
+  const movieDetails = [];
+
+  for (let i = 0; i < recommendedMovies.length; i++) {
+    const movie = recommendedMovies[i];
+    const movieData = await getMovieData(movie);
+    const movieWithGenres = await getMovieWithGenres(movieData.results[0]);
+    movieDetails.push(movieWithGenres);
+  }
+
+  return movieDetails;
+};
+
+const getMovieWithGenres = async (movie: any) => {
+  const genres: { name: string }[] = await getMovieGenres(parseInt(movie.id));
+  const genreNames: string[] = genres.map((genre) => genre.name);
+  return { ...movie, genre: genreNames };
 };
 
 export const getMoviesList = async (params: {
