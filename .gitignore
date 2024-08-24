@@ -1,0 +1,9 @@
+backend/.venv
+.venv
+
+frontend/.env
+frontend/.node_modules
+frontend/.next
+frontend/build
+.vercel
+.env*.local

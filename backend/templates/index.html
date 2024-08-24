@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #videoContainer {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        video, canvas {
+            border: 2px solid #ccc;
+        }
+        #redirectForm {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-time Emotion Detection</h1>
+    <div id="videoContainer">
+        <video id="video" width="320" height="240" autoplay></video>
+        <canvas id="canvas" width="320" height="240"></canvas>
+    </div>
+    <h2 id="emotion"></h2>
+    <form id="redirectForm" action="/redirect" method="post">
+        <button type="submit" id="redirectButton">Go to Next Page</button>
+    </form>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+
+        const emotionDisplay = document.getElementById('emotion');
+        const redirectButton = document.getElementById('redirectButton');
+
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Error accessing webcam: ", err);
+            });
+
+        const socket = io();
+
+        // Send frames to server for processing
+        function sendFrame() {
+            const canvasTemp = document.createElement('canvas');
+            canvasTemp.width = video.videoWidth;
+            canvasTemp.height = video.videoHeight;
+            canvasTemp.getContext('2d').drawImage(video, 0, 0, canvasTemp.width, canvasTemp.height);
+            const data = canvasTemp.toDataURL('image/png');
+            socket.emit('process_frame', data);
+        }
+
+        // Process frame every 500ms
+        setInterval(sendFrame, 500);
+
+        // Handle processed frame and emotion
+        socket.on('frame_processed', function(data) {
+            const image = new Image();
+            image.src = 'data:image/png;base64,' + data.image_data;
+            image.onload = function() {
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+            };
+            emotionDisplay.innerText = "Detected Emotion: " + data.emotion;
+            redirectButton.innerText = "Go to Next Page (" + data.emotion + ")";
+        });
+    </script>
+</body>
+</html>
