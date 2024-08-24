@@ -40,7 +40,7 @@ const MoviesCards = ({ movie }: { movie: MovieProp }) => {
       >
         <Heart color="#ff0000" />
       </button>
-      <Link href={`/search/${movie.title}`}>
+      <Link href={`/search/${movie.title}`} className="cursor-pointer">
         <div className="flex rounded-md bg-black bg-opacity-80 left-7 top-5  px-2 py-1 text-orange-300 absolute">
           <svg
             xmlns="http://www.w3.org/2000/svg"
