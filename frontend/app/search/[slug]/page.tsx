@@ -1,6 +1,7 @@
 "use client";
 import { useParams } from "next/navigation";
 import {
+  getCollaborativeRecommendedMovies,
   getMovieData,
   getMovieDetail,
   getRecomendedMovies,
@@ -40,6 +41,19 @@ const SearchResult = () => {
     enabled: !!inputValue,
   });
 
+  const Collaborativerecommendation = useQuery({
+    queryKey: ["CollaborativeRecommendedMoviesList", inputValue],
+    queryFn: () => getCollaborativeRecommendedMovies(inputValue),
+    enabled: !!inputValue,
+  });
+
+  if (Collaborativerecommendation.data) {
+    console.log(
+      "Collaborative Recommendation:",
+      Collaborativerecommendation.data
+    );
+  }
+
   if (movieDataQuery.isLoading || movieDetailQuery.isLoading) {
     return (
       <div>
@@ -52,7 +66,7 @@ const SearchResult = () => {
     return <div>Error loading Movie details </div>;
   }
 
-  if (recommendedMoviesQuery.isError) {
+  if (recommendedMoviesQuery.isError || Collaborativerecommendation.isError) {
     return <div>Error loading Recommended Data</div>;
   }
 
@@ -70,6 +84,7 @@ const SearchResult = () => {
         videoData={videoKey || []}
       />
       <h1 className="text-white text-3xl ml-5">Recommended Movies</h1>
+      {/* basaed on content  */}
       <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
         {recommendedMoviesQuery.isLoading ? (
           <RecommendedMoviesSkeleton />
@@ -78,6 +93,24 @@ const SearchResult = () => {
           recommendedMoviesQuery.data.length > 0 ? (
             recommendedMoviesQuery.data.map((item) => (
               <MoviesCards key={item.id} movie={item} />
+            ))
+          ) : (
+            <p>No current recommendations for this movie</p>
+          )
+        ) : (
+          <p>No data available</p>
+        )}
+      </div>
+      {/* collaborative recommendation  */}
+      <h1 className="text-white text-xl ml-5">Collaborative Recommendation</h1>
+      <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        {Collaborativerecommendation.isLoading ? (
+          <RecommendedMoviesSkeleton />
+        ) : Collaborativerecommendation.data !== null &&
+          Collaborativerecommendation.data !== undefined ? (
+          Collaborativerecommendation.data.length > 0 ? (
+            Collaborativerecommendation.data.map((collab, index) => (
+              <MoviesCards key={index} movie={collab} />
             ))
           ) : (
             <p>No current recommendations for this movie</p>

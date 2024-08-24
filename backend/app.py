@@ -212,7 +212,7 @@ def collaborative_name_based(name):
 
     # Get the movie titles for the similar movies
     recommendations = movies[movies['movieId'].isin(
-        similar_movies)]['title'].values.tolist()
+        similar_movies)]['title'].apply(lambda x: x.split('(')[0].strip()).values.tolist()
 
     if not recommendations:
         return jsonify({'error': 'No similar movies found.'}), 404
