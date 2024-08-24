@@ -61,6 +61,23 @@ const favouriteSlice = createSlice({
         });
       }
     },
+    removeMovieFromFavourite: (state, action: PayloadAction<MovieRedux>) => {
+      const index = state.movies.findIndex(
+        (movie) => movie.title === action.payload.title
+      );
+      if (index !== -1) {
+        state.movies.splice(index, 1);
+        // Revert genreCounts
+        action.payload.genre?.forEach((genre) => {
+          state.genreCounts[genre]--;
+          if (state.genreCounts[genre] === 0) {
+            delete state.genreCounts[genre];
+          }
+        });
+        // Update local storage
+        localStorage.setItem("favoriteMovies", JSON.stringify(state.movies));
+      }
+    },
     initializeFromLocalStorage: (state) => {
       const storedMovies = localStorage.getItem("favoriteMovies");
       if (storedMovies) {

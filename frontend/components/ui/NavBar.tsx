@@ -35,7 +35,7 @@ const NavBar = async () => {
             <Link href="/" className="text-gray-50 hover:text-blue-600">
               Home
             </Link>
-            <Link href="#" className="text-gray-50 hover:text-blue-600">
+            <Link href="/movies" className="text-gray-50 hover:text-blue-600">
               Movies
             </Link>
             <Link href="#" className="text-gray-50 hover:text-blue-600">
