@@ -4,7 +4,7 @@ import {
   getMovieData,
   getMovieDetail,
   getRecomendedMovies,
-} from "@/app/api/tmdb/tmdbapi";
+} from "@/lib/tmdb/tmdbapi";
 import { useQuery } from "@tanstack/react-query";
 import MovieDetailCard from "@/components/ui/cards/MovieDetailCard";
 import RecommendedMovies from "@/components/ui/cards/RecommendedMovies";

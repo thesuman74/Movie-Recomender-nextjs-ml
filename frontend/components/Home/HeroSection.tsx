@@ -77,8 +77,8 @@ const HeroSection = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
+                      strokeWidth="2"
+                      strokeLinecap="round"
                       stroke-linejoin="round"
                       className="lucide lucide-search pr-2 border-r w-8 h-8"
                     >

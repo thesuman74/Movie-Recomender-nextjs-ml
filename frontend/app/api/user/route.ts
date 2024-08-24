@@ -5,6 +5,7 @@ import * as z from "zod";
 
 // Define schema for user input validation
 const userSchema = z.object({
+  name: z.string().min(1, "Full name is required"),
   email: z.string().min(1, "Email is required").email("Invalid Email"),
   password: z.string().min(1, "Password is required"),
 });
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     userSchema.parse(body);
 
-    const { email, password } = body;
+    const { name, email, password } = body;
 
     // Check if an email already exists to avoid duplicate accounts
     const existingUserByEmail = await db.user.findUnique({
@@ -34,6 +35,7 @@ export async function POST(req: Request) {
     // Create a new user in the database with the hashed password
     const newUser = await db.user.create({
       data: {
+        name,
         email,
         password: hashedPassword,
       },
@@ -63,5 +65,3 @@ export async function POST(req: Request) {
     );
   }
 }
-
-// for login

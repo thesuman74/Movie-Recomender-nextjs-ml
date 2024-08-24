@@ -1,10 +1,11 @@
 import { auth } from "@/auth";
-import TrendingMovies from "@/components/ui/dashboard/TrendingMovies";
+// import TrendingMovies from "@/components/ui/dashboard/TrendingMovies";
 
 import { redirect } from "next/navigation";
 import React from "react";
 import Movies from "../Home/Movies";
 import UserProfile from "@/components/UserProfile";
+import FavouriteMovies from "../favourites/page";
 
 const page = async () => {
   const session = await auth();
@@ -15,8 +16,9 @@ const page = async () => {
     <div className="">
       {/* <UserHero /> */}
       <UserProfile />
+      {/* <FavouriteMovies /> */}
 
-      <TrendingMovies />
+      {/* <TrendingMovies /> */}
       <Movies />
     </div>
   );

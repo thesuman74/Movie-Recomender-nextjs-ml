@@ -1,23 +1,35 @@
-import React from "react";
-import { fetchAnime } from "../action";
-import { AnimeProp } from "../types";
+"use client";
 import MoviesCards from "@/components/ui/cards/MoviesCards";
+import RecommendedMovies from "@/components/ui/cards/RecommendedMovies";
+import { RecommendedMoviesSkeleton } from "@/components/ui/Skeletons";
+import { getMoviesList } from "@/lib/tmdb/tmdbapi";
+import React, { useState, useEffect, Suspense } from "react";
+import { MovieProp } from "../types";
 
-const Movies = async () => {
-  const data = await fetchAnime(1);
+const MoviesPage = () => {
+  const [movies, setMovies] = useState<MovieProp[]>([]);
+
+  useEffect(() => {
+    const params = {
+      page: 1,
+      genreId: 28, // Action movies
+      sortBy: "popularity.desc",
+    };
+
+    getMoviesList(params).then((movies) => setMovies(movies));
+  }, []);
+
   return (
     <div>
-      <main className="sm:p-16 py-16 px-8 flex flex-col gap-10">
-        <h2 className="text-3xl text-white font-bold">Recommended </h2>
-
-        <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-          {data.map((item: AnimeProp, index: number) => (
-            <MoviesCards key={item.id} anime={item} index={index} />
-          ))}
-        </section>
-      </main>
+      <h1 className="text-white text-3xl ml-5"> Movies</h1>
+      <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        <Suspense fallback={<RecommendedMoviesSkeleton />}>
+          {movies &&
+            movies.map((movie) => <MoviesCards key={movie.id} movie={movie} />)}
+        </Suspense>
+      </div>
     </div>
   );
 };
 
-export default Movies;
+export default MoviesPage;

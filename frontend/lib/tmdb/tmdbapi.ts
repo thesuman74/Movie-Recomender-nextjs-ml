@@ -1,5 +1,6 @@
 // api/tmdbapi.ts
 import { moviesList } from "@/app/action";
+import { MovieProp } from "@/app/types";
 import axios from "axios";
 
 const apiKey = process.env.NEXT_PUBLIC_API_KEY;
@@ -76,4 +77,61 @@ export const getMoviesByGenre = async (inputValue: string) => {
   // console.log("this is recommended movie details", recommendedMovies);
 
   return movieDetails;
+};
+
+export const getMoviesList = async (params: {
+  page: number;
+  genreId?: number;
+  sortBy?: string;
+}) => {
+  let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${params.page}`;
+
+  if (params.genreId) {
+    url += `&with_genres=${params.genreId}`;
+  }
+
+  if (params.sortBy) {
+    url += `&sort_by=${params.sortBy}`;
+  }
+
+  const response = await axios.get(url);
+  const movies: MovieProp[] = response.data.results;
+
+  const moviesWithGenres: MovieProp[] = await Promise.all(
+    movies.map(async (movie) => {
+      const genres: { name: string }[] = await getMovieGenres(
+        parseInt(movie.id)
+      );
+      const genreNames: string[] = genres.map((genre) => genre.name);
+      return { ...movie, genre: genreNames };
+    })
+  );
+
+  return moviesWithGenres;
+};
+
+export const getMovieDataFormatted = async (
+  movieName: string
+): Promise<MovieProp> => {
+  const movieData = await getMovieData(movieName);
+  const movieId = movieData.results[0].id;
+  const genres: { name: string }[] = await getMovieGenres(movieId);
+  const genreNames: string[] = genres.map((genre) => genre.name);
+
+  const movieDetail = await getMovieDetail(movieId);
+
+  const formattedMovieData: MovieProp = {
+    id: movieId.toString(),
+    backdrop_path: movieData.results[0].backdrop_path,
+    genre_ids: movieData.results[0].genre_ids,
+    original_title: movieData.results[0].original_title,
+    overview: movieData.results[0].overview,
+    poster_path: movieData.results[0].poster_path,
+    release_date: movieData.results[0].release_date,
+    title: movieData.results[0].title,
+    vote_average: movieData.results[0].vote_average,
+    genre: genreNames,
+  };
+
+  return formattedMovieData;
 };

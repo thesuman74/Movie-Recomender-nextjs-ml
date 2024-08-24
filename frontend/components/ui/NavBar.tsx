@@ -3,12 +3,13 @@ import Link from "next/link";
 import React from "react";
 import Logout from "../LogoutButton";
 import { auth } from "@/auth";
+import { UserCheck } from "lucide-react";
 
 const NavBar = async () => {
   const session = await auth();
 
   return (
-    <header className="z-50 py-4 bg-transparent">
+    <header className=" py-4 bg-transparent">
       <div className="mx-auto w-full px-5 sm:px-10 md:px-12 lg:px-5">
         <nav className="w-full flex justify-between relative">
           {/* <!-- logo --> */}
@@ -34,7 +35,7 @@ const NavBar = async () => {
             <Link href="/" className="text-gray-50 hover:text-blue-600">
               Home
             </Link>
-            <Link href="#" className="text-gray-50 hover:text-blue-600">
+            <Link href="/movies" className="text-gray-50 hover:text-blue-600">
               Movies
             </Link>
             <Link href="#" className="text-gray-50 hover:text-blue-600">
@@ -48,7 +49,12 @@ const NavBar = async () => {
           {/* <!-- Auth Buttons --> */}
           <div>
             {session?.user ? (
-              <Logout />
+              <div className="flex text-white items-center space-x-5">
+                <Link href={"/dashboard"}>
+                  <UserCheck />
+                </Link>
+                <Logout />
+              </div>
             ) : (
               <Link
                 href="/login"

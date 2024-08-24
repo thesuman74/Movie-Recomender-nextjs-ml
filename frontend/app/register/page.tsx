@@ -5,6 +5,7 @@ import { z } from "zod";
 
 // Define the schema for form data validation
 const formSchema = z.object({
+  name: z.string().min(1, "Full name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(1, "You should enter Password"),
 });
@@ -23,6 +24,7 @@ export default function Page() {
       const formData = new FormData(event.currentTarget);
       // Convert FormData into an object
       const formObject = {
+        name: formData.get("name") as string,
         email: formData.get("email") as string,
         password: formData.get("password") as string,
       };
@@ -90,12 +92,27 @@ export default function Page() {
               <div className="w-full space-y-8">
                 <div className="relative">
                   <p className="absolute -mt-3 ml-2 bg-white p-1 text-gray-600 font-medium">
+                    Full Name
+                  </p>
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    name="name"
+                    className="w-full mt-2 block bg-white border border-gray-300 rounded-md p-4 placeholder-gray-400 focus:outline-none focus:border-black text-base"
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                  )}
+                </div>
+                <div className="relative">
+                  <p className="absolute -mt-3 ml-2 bg-white p-1 text-gray-600 font-medium">
                     Email
                   </p>
                   <input
                     type="email"
                     placeholder="123@ex.com"
                     name="email"
+                    // new line
                     className="w-full mt-2 block bg-white border border-gray-300 rounded-md p-4 placeholder-gray-400 focus:outline-none focus:border-black text-base"
                   />
                   {errors.email && (
