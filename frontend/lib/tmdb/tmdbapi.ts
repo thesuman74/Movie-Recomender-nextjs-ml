@@ -121,7 +121,6 @@ export const getAllMoviesBylimit = async (limit: string) => {
   const response = await axios.get(
     `http://127.0.0.1:5000/api/movies?limit=${limit}`
   );
-  // console.log("this is getallmoviesbtlimit api", response.data);
 
   const recommendedMovies = response.data.arr;
   const movieDetails = [];
@@ -129,13 +128,17 @@ export const getAllMoviesBylimit = async (limit: string) => {
   for (let i = 0; i < recommendedMovies.length; i++) {
     const movie = recommendedMovies[i];
     const movieData = await getMovieData(movie);
-    // console.log("this is all moviedata after push", movieData.results);
-
-    movieDetails.push(movieData.results[0]);
+    const movieWithGenres = await getMovieWithGenres(movieData.results[0]);
+    movieDetails.push(movieWithGenres);
   }
-  console.log("movie details after push", movieDetails);
 
   return movieDetails;
+};
+
+const getMovieWithGenres = async (movie: any) => {
+  const genres: { name: string }[] = await getMovieGenres(parseInt(movie.id));
+  const genreNames: string[] = genres.map((genre) => genre.name);
+  return { ...movie, genre: genreNames };
 };
 
 export const getMoviesList = async (params: {

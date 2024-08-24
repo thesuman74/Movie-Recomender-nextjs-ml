@@ -64,7 +64,7 @@ export function RecommendedMoviesSkeleton() {
       {skeletonItems.map((_, index) => (
         <div
           key={index}
-          className="mx-auto grid gap-5 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+          className="mx-auto grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
         >
           {/* <div key={index} className="m-3 w-full"> */}
           <div className="m-3 w-full">

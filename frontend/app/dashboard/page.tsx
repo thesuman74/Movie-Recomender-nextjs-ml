@@ -21,9 +21,9 @@ const page = async () => {
       {/* <FavouriteMovies /> */}
 
       {/* <TrendingMovies /> */}
-      <AllMoviesList />
-      <Movies />
-      {/* <AllMovies /> */}
+      {/* <AllMoviesList /> */}
+      {/* <Movies /> */}
+      <AllMovies />
     </div>
   );
 };

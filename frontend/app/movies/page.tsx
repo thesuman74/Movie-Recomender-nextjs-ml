@@ -20,8 +20,8 @@ const AllMovies = () => {
   if (isLoading) {
     return (
       <div>
-        <h1 className="text-white text-3xl ml-5"> Movies</h1>
-        <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
+        <h1 className="text-white text-3xl ml-5 mt-2"> Movies</h1>
+        <div className="container grid gap-5  lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
           <RecommendedMoviesSkeleton />
         </div>
       </div>
