@@ -139,7 +139,10 @@ def getMoviesByGenre(genre, limit):
 @app.route('/api/movies', methods=['GET'])
 @cross_origin()
 def movies():
+    limit = request.args.get('limit', type=int)
     movies = getAllMovies()
+    if limit:
+        movies = movies[:limit]
     result = {'arr': movies}
     return jsonify(result)
 

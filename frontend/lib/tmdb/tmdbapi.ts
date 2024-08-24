@@ -117,6 +117,26 @@ export const getMoviesByMood = async (inputValue: string) => {
   return movieDetails;
 };
 
+export const getAllMoviesBylimit = async (limit: string) => {
+  const response = await axios.get(
+    `http://127.0.0.1:5000/api/movies?limit=${limit}`
+  );
+  console.log("this is movies by genre", response);
+
+  const recommendedMovies = response.data.movies;
+  const movieDetails = [];
+
+  for (let i = 0; i < 10; i++) {
+    const movie = recommendedMovies[i];
+    const movieData = await getMovieData(movie);
+
+    movieDetails.push(movieData.results[0]);
+  }
+  // console.log("this is recommended movie details", recommendedMovies);
+
+  return movieDetails;
+};
+
 export const getMoviesList = async (params: {
   page: number;
   genreId?: number;
