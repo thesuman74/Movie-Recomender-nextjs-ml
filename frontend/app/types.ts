@@ -25,7 +25,14 @@ export interface MovieProp {
 export interface MovieRedux {
   id: string;
   title: string;
-  genre: string[];
+  original_title: string;
+  backdrop_path: string;
+  poster_path: string;
+  vote_average: number;
+  overview: string;
+  release_date: string;
+  genre_ids: number[];
+  genre?: string[];
 }
 export interface User {
   name: string;

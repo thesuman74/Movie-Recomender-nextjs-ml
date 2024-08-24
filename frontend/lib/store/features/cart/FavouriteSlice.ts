@@ -1,12 +1,7 @@
+import { MovieRedux } from "@/app/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { User } from "lucide-react";
-
-interface MovieRedux {
-  id: string;
-  title: string;
-  genre: string[];
-}
 
 interface FavouriteState {
   movies: MovieRedux[];
@@ -33,7 +28,7 @@ const favouriteSlice = createSlice({
       if (!existingMovie) {
         state.movies.push(action.payload);
         // Update genreCounts
-        action.payload.genre.forEach((genre) => {
+        action.payload.genre?.forEach((genre) => {
           if (!state.genreCounts[genre]) {
             state.genreCounts[genre] = 1;
           } else {
@@ -58,7 +53,7 @@ const favouriteSlice = createSlice({
       if (index !== -1) {
         state.movies.splice(index, 1);
         // Revert genreCounts
-        action.payload.genre.forEach((genre) => {
+        action.payload.genre?.forEach((genre) => {
           state.genreCounts[genre]--;
           if (state.genreCounts[genre] === 0) {
             delete state.genreCounts[genre];
@@ -72,7 +67,7 @@ const favouriteSlice = createSlice({
         state.movies = JSON.parse(storedMovies);
         // Update genreCounts from stored data
         state.movies.forEach((movie) => {
-          movie.genre.forEach((genre) => {
+          movie.genre?.forEach((genre) => {
             if (!state.genreCounts[genre]) {
               state.genreCounts[genre] = 1;
             } else {

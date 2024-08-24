@@ -1,17 +1,46 @@
-import { AnimeProp, MovieProp } from "@/app/types";
+import { AnimeProp, Movie, MovieProp, MovieRedux } from "@/app/types";
+import { addMovietoFavourite } from "@/lib/store/features/cart/FavouriteSlice";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { useToast } from "../use-toast";
+import { useDispatch } from "react-redux";
+import { Heart } from "lucide-react";
 
-interface Prop {
-  anime: AnimeProp;
-  index: number;
-}
+const MoviesCards = ({ movie }: { movie: MovieProp }) => {
+  const dispatch = useDispatch();
+  const { toast } = useToast();
 
-function MoviesCards({ movie }: { movie: MovieProp }) {
-  console.log("Moviescard data",movie);
+  const handleAddToFavorites = () => {
+    const movieToAdd: MovieRedux = {
+      id: movie.id,
+      title: movie.title,
+      original_title: movie.title,
+      backdrop_path: movie.backdrop_path,
+      poster_path: movie.poster_path,
+      vote_average: movie.vote_average,
+      overview: "",
+      release_date: "",
+      genre_ids: movie.genre_ids || [],
+      genre: movie.genre ?? [],
+    };
+    dispatch(addMovietoFavourite(movieToAdd));
+
+    toast({
+      variant: "success",
+      title: "Added to Favourite",
+    });
+  };
+
   return (
-    <Link href={`/search/${movie.title}`}>
-      <div className="relative m-5">
+    <div className="relative m-5">
+      {/* Favorite button */}
+      <button
+        className="absolute top-2 right-5 w-7 h-7 flex items-center justify-center rounded-full hover:scale-110 transition-all duration-150 z-10 cursor-pointer hover:fill group-hover:scale-105"
+        onClick={handleAddToFavorites}
+      >
+        <Heart color="#ff0000" />
+      </button>
+      <Link href={`/search/${movie.title}`}>
         <div className="flex rounded-md bg-black bg-opacity-80 left-7 top-5  px-2 py-1 text-orange-300 absolute">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -41,9 +70,9 @@ function MoviesCards({ movie }: { movie: MovieProp }) {
             {movie.title}
           </p>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
-}
+};
 
 export default MoviesCards;

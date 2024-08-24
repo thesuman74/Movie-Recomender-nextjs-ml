@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import TrendingMovies from "@/components/ui/dashboard/TrendingMovies";
+// import TrendingMovies from "@/components/ui/dashboard/TrendingMovies";
 
 import { redirect } from "next/navigation";
 import React from "react";
@@ -16,7 +16,7 @@ const page = async () => {
       {/* <UserHero /> */}
       <UserProfile />
 
-      <TrendingMovies />
+      {/* <TrendingMovies /> */}
       <Movies />
     </div>
   );
