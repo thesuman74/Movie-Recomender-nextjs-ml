@@ -12,6 +12,7 @@ import {
   MovieDetailSkeleton,
   RecommendedMoviesSkeleton,
 } from "@/components/ui/Skeletons";
+import MoviesCards from "@/components/ui/cards/MoviesCards";
 
 const SearchResult = () => {
   const { slug } = useParams();
@@ -72,10 +73,17 @@ const SearchResult = () => {
       <div className="container grid gap-5 p-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
         {recommendedMoviesQuery.isLoading ? (
           <RecommendedMoviesSkeleton />
+        ) : recommendedMoviesQuery.data !== null &&
+          recommendedMoviesQuery.data !== undefined ? (
+          recommendedMoviesQuery.data.length > 0 ? (
+            recommendedMoviesQuery.data.map((item) => (
+              <MoviesCards key={item.id} movie={item} />
+            ))
+          ) : (
+            <p>No current recommendations for this movie</p>
+          )
         ) : (
-          recommendedMoviesQuery.data?.map((item) => (
-            <RecommendedMovies key={item.id} movie={item} />
-          ))
+          <p>No data available</p>
         )}
       </div>
     </div>
