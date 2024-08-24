@@ -77,3 +77,22 @@ export const getMoviesByGenre = async (inputValue: string) => {
 
   return movieDetails;
 };
+
+export const getMoviesList = async (params: {
+  page: number;
+  genreId?: number;
+  sortBy?: string;
+}) => {
+  let url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${params.page}`;
+
+  if (params.genreId) {
+    url += `&with_genres=${params.genreId}`;
+  }
+
+  if (params.sortBy) {
+    url += `&sort_by=${params.sortBy}`;
+  }
+
+  const response = await axios.get(url);
+  return response.data.results;
+};

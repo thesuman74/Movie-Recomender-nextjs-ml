@@ -1,5 +1,4 @@
 import HeroSection from "@/components/Home/HeroSection";
-import MoviesCards from "@/components/ui/cards/MoviesCards";
 
 import Movies from "./Home/Movies";
 import MoodCategories from "@/components/Home/MoodCategories";

@@ -1,6 +1,6 @@
 "use client";
 
-import { getMoviesByGenre } from "@/app/api/tmdb/tmdbapi";
+import { getMoviesByGenre } from "@/lib/tmdb/tmdbapi";
 import RecommendedMovies from "@/components/ui/cards/RecommendedMovies";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
