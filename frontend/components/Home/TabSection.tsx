@@ -14,7 +14,7 @@ const TabSection = () => {
         <h2 className="text-center text-md sm:text-lg md:text-xl lg:text-2xl mb-8">
           How do You want to Continue?
         </h2>
-        <Tabs defaultValue="Mood" className="w-full dark">
+        <Tabs defaultValue="Genre" className="w-full dark">
           <TabsList className="flex justify-center">
             {/* The TabsList itself should also be flex to justify the content center */}
             <TabsTrigger
