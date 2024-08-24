@@ -8,7 +8,7 @@ import React from "react";
 import { MovieProp } from "../types";
 import { useQuery } from "@tanstack/react-query";
 
-const AllMovies = () => {
+const AllMoviesList = () => {
   const inputValue = "16";
 
   const { data, isLoading, isError, error } = useQuery({
@@ -48,4 +48,4 @@ const AllMovies = () => {
   );
 };
 
-export default AllMovies;
+export default AllMoviesList;
